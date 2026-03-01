@@ -16,6 +16,12 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <assert.h>
+
+typedef unsigned int t_bool;
+
+#define TRUE    1 
+#define FALSE   0 
 
 //Partie 1
 int		ft_isalpha(int c);

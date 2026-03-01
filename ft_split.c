@@ -12,98 +12,109 @@
 
 #include "libft.h"
 
-static size_t	count_word(char const *str, char c)
+void *ft_clean_split(char **split)
 {
-	size_t	i;
-	size_t	word_count;
-	size_t	is_word;
+    char **ptr;
 
-	i = 0;
-	word_count = 0;
-	is_word = 0;
-	while (str[i] && i < ft_strlen(str) - 1)
-	{
-		if (str[i] == c)
-		{
-			is_word = 0;
-			i++;
-		}
-		if (str[i] != c)
-		{
-			if (is_word == 0)
-				word_count++;
-			is_word = 1;
-			i++;
-		}
-	}
-	return (word_count);
+    ptr = split;
+    while (*ptr)
+    {
+        free(*ptr);
+        *ptr = NULL;
+        ptr++;
+    }
+    free(split);
+    split = NULL;
+    return (NULL);
 }
 
-static void	ft_free(char **p, size_t index)
+t_bool is_on_set(char c, char *charset)
 {
-	size_t	k;
+    int i;
 
-	k = 0;
-	while (k <= index)
-	{
-		p[k] = NULL;
-		free(p[k]);
-		k++;
-	}
-	p = NULL;
-	free(p);
+    if (!charset)
+        return (0);
+    i = 0;
+    while (charset[i])
+    {
+        if (c == charset[i])
+            return(TRUE);
+        i++;
+    }
+    return (FALSE);
 }
 
-static void	check_alloc(char **ptr, size_t j)
+int count_word(char *str, char *charset)
 {
-	if (!*ptr[j])
-		ft_free(ptr, j);
+    int counter;
+
+    if(!charset && str)
+        return (1);
+    if(!charset && !str)
+        return (0);
+    counter = 0;
+    while (*str)
+    {
+        while (*str && is_on_set(*str, charset))
+            str++;
+        if (*str && !is_on_set(*str, charset))
+            counter++;
+        while (*str && !is_on_set(*str, charset))
+            str++;        
+    }
+    return (counter);
 }
 
-static char	**process_data(char **ptr, char const *s, char c, size_t nb_word)
-{
-	size_t	i;
-	size_t	j;
-	size_t	len;
 
-	j = 0;
-	i = 0;
-	while (j < nb_word)
-	{
-		if (s[i] != c)
-		{
-			len = (ft_strchr(&s[i], c)) - &s[i];
-			if (len <= ft_strlen(s))
-			{
-				ptr[j] = ft_substr(&s[i], 0, len);
-				i = (len - 1) + i;
-			}
-			else if (len > ft_strlen(s))
-				ptr[j] = ft_strdup(&s[i]);
-			check_alloc(ptr, j);
-			j++;
-		}
-		i++;
-	}
-	ptr[j] = NULL;
-	return (ptr);
+char *ft_extract_word(char **str, char *charset)
+{
+    char *ptr;
+    char *new_str;
+    int i;
+
+    i = 0;
+    ptr = *str;
+    while (ptr[i] && !is_on_set(ptr[i], charset))
+        i++;
+    new_str  = malloc(sizeof(char) * (i + 1));
+    if (!new_str)
+        return (NULL);
+    ptr = new_str;
+    while (*(*str) && !is_on_set(*(*str), charset))
+    {
+        *ptr = *(*str);
+        (*str)++;
+        ptr++;
+    }
+    *ptr = '\0';
+    return(new_str);
 }
 
-char	**ft_split(char const *s, char c)
+char **ft_split(char *str, char *charset)
 {
-	size_t	word;
-	char	**ptr;
+    int     nb_word;
+    char    **split;
+    int i;
 
-	word = 0;
-	if (!s)
-		return (NULL);
-	word = count_word(s, c);
-	ptr = malloc((sizeof(char *) * (word + 1)));
-	if (!ptr)
-	{
-		free(ptr);
-		return (NULL);
-	}
-	process_data(ptr, s, c, word);
-	return (ptr);
+    if (!str)
+        return (NULL);
+    nb_word = count_word(str, charset);
+    split = malloc(sizeof(char *) * (nb_word + 1));
+    if (!split)
+        return (NULL);
+    i = 0;
+    while (i < nb_word)
+    {
+        while (*str && is_on_set(*str, charset))
+            str++;
+        if (*str && !is_on_set(*str, charset))
+        {
+            split[i] = ft_extract_word(&str, charset);
+            if (!split[i])
+                return (ft_clean_split(split));
+        }
+        i++;
+    }
+    split[i] = NULL;
+    return(split);
 }
