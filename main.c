@@ -3,7 +3,7 @@
 int main(void)
 {
 
-    ft_atoi_base_assertion();
+    ft_print_bit(42, 16);
 
     
     return (0);

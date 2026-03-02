@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julienW <julienW@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 10:34:03 by cbouhadr          #+#    #+#             */
-/*   Updated: 2026/03/02 06:32:34 by julienW          ###   ########.fr       */
+/*   Updated: 2026/03/02 10:50:19 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,7 @@ void	ft_bubble_sort(void *arr, int nb, int t,
 			int (*cmp)(void *p1, void *p2));
 int		ft_is_sort(void *arr, int nb, int t, int (*cmp)(void *p1, void *p2));
 void	ft_generate_number(int *arr, int size);
-void	ft_print_bit_8(int n);
-void	ft_print_bit_16(int n);
-void	ft_print_bit_32(int n);
-void	ft_print_bit_64(int n);
+void	ft_print_bit(int n, unsigned int bit);
 int		ft_index_of_int(int *arr, int len, int n);
 int		ft_index_of_char(char const *str, char c);
 void 	ft_generate_number(int *arr, int size);

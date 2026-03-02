@@ -49,10 +49,7 @@ SRCS=	ft_putchar_fd.c \
 		ft_swap_ptr.c \
 		ft_is_sort.c \
 		ft_isset.c \
-		ft_print_bit_8.c \
-		ft_print_bit_16.c \
-		ft_print_bit_32.c \
-		ft_print_bit_64.c \
+		ft_print_bit.c \
 		ft_index_of_int.c \
 		ft_index_of_char.c \
 		ft_get_max_value.c \
@@ -92,6 +89,7 @@ clean:
 
 fclean: clean
 	rm -f ${NAME} 
+	rm -f ${NAME_TEST} 
 	rm -f ${OBJS_MAIN}
 
 re: fclean ${NAME}
@@ -103,7 +101,7 @@ r:
 t:  test
 	./${NAME_TEST}
 
-gdev:
+gdev: fclean
 	git add .
 	git commit -m $(NAME)/$(DATE) 
 	git push
