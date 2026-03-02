@@ -5,13 +5,17 @@ NAME = libft.a
 NAME_TEST = test
 CFLAGS = -Wall -Werror -Wextra
 
+SRCS_MAIN=main.c
+
 SRCS=	ft_putchar_fd.c \
 		ft_putstr_fd.c \
 		ft_putendl_fd.c \
 		ft_putnbr_fd.c	\
+		ft_putnbr_base_fd.c	\
 		ft_isalpha.c \
 		ft_isdigit.c \
 		ft_isalnum.c \
+		ft_isspace.c \
 		ft_isascii.c \
 		ft_isprint.c \
 		ft_strlen.c \
@@ -38,6 +42,7 @@ SRCS=	ft_putchar_fd.c \
 		ft_strncmp.c \
 		ft_itoa.c \
 		ft_atoi.c \
+		ft_atoi_base.c \
 		ft_substr.c \
 		ft_cmp_char.c \
 		ft_cmp_int.c \
@@ -48,8 +53,10 @@ SRCS=	ft_putchar_fd.c \
 		ft_print_bit_16.c \
 		ft_print_bit_32.c \
 		ft_print_bit_64.c \
-		ft_index_of.c \
+		ft_index_of_int.c \
+		ft_index_of_char.c \
 		ft_get_max_value.c \
+		ft_recursive_power.c
 
 BONUS=	ft_lstnew_bonus.c \
 		ft_lstadd_front_bonus.c \
@@ -63,14 +70,19 @@ BONUS=	ft_lstnew_bonus.c \
 		ft_lstmap_bonus.c \
 		
 OBJS=${SRCS:.c=.o}
+OBJS_MAIN=${SRCS_MAIN:.c=.o}
 BONUS_OBJS=${BONUS:.c=.o}
-
 
 all: ${NAME}
 
 ${NAME}: ${OBJS} ${HDRS}
 	${AR} ${NAME} ${OBJS}
 
+test: ${OBJS_MAIN} ${OBJS} 
+	${CC} ${CFLAGS} ${OBJS} ${OBJS_MAIN} -o test
+
+run: test
+	@./test
 
 bonus: ${OBJS} ${BONUS_OBJS} ${HDRS}
 	${AR} ${NAME} ${OBJS} ${BONUS_OBJS}
@@ -80,7 +92,7 @@ clean:
 
 fclean: clean
 	rm -f ${NAME} 
-	rm -f ${NAME} 
+	rm -f ${OBJS_MAIN}
 
 re: fclean ${NAME}
 
@@ -88,14 +100,11 @@ re: fclean ${NAME}
 r:
 	rm -f ${NAME_TEST}
 
-test: r
-	${CC} ${CFLAGS} *.c -o ${NAME_TEST}
-
 t:  test
 	./${NAME_TEST}
 
 gdev:
-	cd .. && git add .
+	git add .
 	git commit -m $(NAME)/$(DATE) 
 	git push
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouhadr <cbouhadr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: julienW <julienW@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 10:34:03 by cbouhadr          #+#    #+#             */
-/*   Updated: 2025/02/20 10:18:05 by cbouhadr         ###   ########.fr       */
+/*   Updated: 2026/03/02 06:32:34 by julienW          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <limits.h>
 # include <assert.h>
 
 typedef unsigned int t_bool;
@@ -29,6 +30,7 @@ int		ft_isdigit(int c);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
+int		ft_isspace(int c);
 size_t	ft_strlen(const char *s);
 void	*ft_memset(void *b, int c, size_t len);
 void	ft_bzero(void *s, size_t n);
@@ -47,6 +49,8 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strdup(const char *s1);
 int		ft_atoi(const char *str);
+int		ft_atoi_base(const char *str, const char *base);
+int 	ft_recursive_power(int nb, int power);
 
 //Partie 2
 char	*ft_substr(char const *s, unsigned int start, size_t len);
@@ -59,7 +63,8 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
-char	**ft_split(char const *s, char c);
+void	ft_putnbr_base_fd(int n, int fd, char const *base);
+char	**ft_split(char const *s, char *charset);
 
 typedef struct s_list
 {
@@ -91,8 +96,16 @@ void	ft_print_bit_8(int n);
 void	ft_print_bit_16(int n);
 void	ft_print_bit_32(int n);
 void	ft_print_bit_64(int n);
-int		ft_index_of(int *arr, int len, int n);
+int		ft_index_of_int(int *arr, int len, int n);
+int		ft_index_of_char(char const *str, char c);
 void 	ft_generate_number(int *arr, int size);
 int		ft_get_max_value(int *arr, int size);
+
+
+//assertions
+
+void ft_atoi_base_assertion(void);
+void ft_recursive_power_assertion(void);
+void ft_index_of_char_assertion(void);
 
 #endif

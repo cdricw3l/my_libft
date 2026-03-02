@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_bit_32.c                                  :+:      :+:    :+:   */
+/*   ft_index_of.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cw3l <cw3l@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julienW <julienW@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/12 18:50:44 by cw3l              #+#    #+#             */
-/*   Updated: 2024/12/13 10:05:19 by cw3l             ###   ########.fr       */
+/*   Created: 2024/12/13 12:14:07 by cbouhadr          #+#    #+#             */
+/*   Updated: 2026/03/02 06:27:19 by julienW          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <assert.h>
 
-void	ft_print_bit_32(int n)
+int	ft_index_of_int(int *arr, int len, int n)
 {
-	int		bit;
-	char	c;
+	int	i;
 
-	bit = 31;
-	while (bit >= 0)
+	i = 0;
+	while (i < len)
 	{
-		c = ((n >> bit) & 1) + '0';
-		write(1, &c, 1);
-		bit--;
+		if (arr[i] == n)
+			return (i);
+		i++;
 	}
-	write(1, "\n", 1);
+	return (-1);
 }

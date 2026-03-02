@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_index_of.c                                      :+:      :+:    :+:   */
+/*   ft_isset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbouhadr <cbouhadr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cw3l <cw3l@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 12:14:07 by cbouhadr          #+#    #+#             */
-/*   Updated: 2024/12/13 12:23:02 by cbouhadr         ###   ########.fr       */
+/*   Created: 2024/12/09 16:42:12 by cw3l              #+#    #+#             */
+/*   Updated: 2024/12/09 16:52:30 by cw3l             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <assert.h>
-
-int	ft_index_of(int *arr, int len, int n)
+int	ft_isspace(int c)
 {
-	int	i;
-
-	i = 0;
-	while (i < len)
-	{
-		if (arr[i] == n)
-			return (i);
-		i++;
-	}
-	return (-1);
+	if (c == '\n' || c == '\t' || c == '\v' || c == '\f'
+		|| c == '\r' || c == 32)
+		return (1);
+	return (0);
 }

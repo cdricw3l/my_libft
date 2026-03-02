@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbouhadr <cbouhadr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 16:18:47 by cbouhadr          #+#    #+#             */
-/*   Updated: 2024/10/10 16:34:48 by cbouhadr         ###   ########.fr       */
+/*   Created: 2024/10/01 10:53:08 by cbouhadr          #+#    #+#             */
+/*   Updated: 2024/10/07 12:12:45 by cbouhadr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+void	ft_putnbr_base_fd(int n, int fd, char const *base)
 {
-	size_t	i;
-	size_t	is_neg;
-	int		result;
+	long	nb;
+	char	digit;
+	size_t	base_len;
 
-	i = 0;
-	is_neg = 0;
-	result = 0;
-	while (ft_isspace(str[i]))
-		i++;
-	if ((str[i] == '-' || str[i] == '+') && ft_isdigit(str[i + 1]))
+	nb = n;
+	if (nb < 0)
 	{
-		if (str[i] == '-')
-			is_neg = 1;
-		i++;
+		write(fd, "-", 1);
+		nb = -nb;
 	}
-	while (ft_isdigit(str[i]))
-	{
-		result = result * 10 + str[i] - 48;
-		i++;
-	}
-	if (is_neg)
-		return (-result);
-	return (result);
+	base_len = ft_strlen(base);
+	if ((size_t)nb >= base_len)
+		ft_putnbr_base_fd(nb / base_len, fd, base);
+	digit = base[nb % base_len];
+	write (fd, &digit, 1);
 }

@@ -44,7 +44,7 @@ t_bool is_on_set(char c, char *charset)
     return (FALSE);
 }
 
-int count_word(char *str, char *charset)
+int count_word(char const *str, char *charset)
 {
     int counter;
 
@@ -66,14 +66,14 @@ int count_word(char *str, char *charset)
 }
 
 
-char *ft_extract_word(char **str, char *charset)
+char *ft_extract_word(char const **str, char *charset)
 {
     char *ptr;
     char *new_str;
     int i;
 
     i = 0;
-    ptr = *str;
+    ptr = (char *)*str;
     while (ptr[i] && !is_on_set(ptr[i], charset))
         i++;
     new_str  = malloc(sizeof(char) * (i + 1));
@@ -90,7 +90,7 @@ char *ft_extract_word(char **str, char *charset)
     return(new_str);
 }
 
-char **ft_split(char *str, char *charset)
+char **ft_split(char const *str, char *charset)
 {
     int     nb_word;
     char    **split;
